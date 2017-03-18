@@ -5,6 +5,82 @@
     <title>关于react 按钮的展示</title>
   </head>
   <body>
+    <div id="container">
+    <!-- This element's contents will be replaced with your component. -->
+    </div>
 
   </body>
+  <!-- 加载react库 -->
+  <script src="https://fb.me/react-15.1.0.js"></script>
+  <script src="https://fb.me/react-dom-15.1.0.js"></script>
+  <!-- 用户加载babel 帮助浏览器将jsx 转换为javascript-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+<!-- //  <script src="../lib/btn.jsx" type="text/babel"></script> -->
+  <script type="text/babel">
+  var LikeButton = React.createClass({
+      getInitialState: function() {
+        return {liked: false};
+      },
+      handleClick: function(event) {
+        this.setState({liked: !this.state.liked});
+      },
+      css:{
+        width:'150px',
+        height:'50px',
+        color:'blue',
+        backgroundColor:'red',
+        borderRadius:'10px'
+      },
+      render: function() {
+        var text = this.state.liked ? 'liked' : 'haven\'t liked';
+        return (
+          <p style={this.css} onClick={this.handleClick}>
+            You {text} this. Click to toggle.
+          </p>
+        );
+      }
+  });
+    // 按钮
+  var ToggleButton=React.createClass({
+    getInitialState:function () {
+      return {open:false};
+    },
+    // 样式属性
+    cssStyle:{
+      backgroundColor:'blue',
+      width:'150px',
+      height:'50px',
+      borderRadius:'10px',
+      textAlign:'center',
+      color:'#fff'
+    },
+    handleClick:function (event) {
+      this.setState({open:!this.state.open});
+    },
+    render:function() {
+      if (this.state.open) {
+        this.cssStyle.backgroundColor='red';
+      }else{
+        this.cssStyle.backgroundColor='blue';
+      }
+      //this.cssStyle.backgroundColor=this.state.opend?'red':'blue',
+      return (
+        <div style={this.cssStyle} onClick={this.handleClick}>
+          <span>{this.props.componentName+this.state.open}</span>
+        </div>
+      );
+    }
+  });
+
+ReactDOM.render(
+  <div>
+    <LikeButton />
+    <LikeButton />
+    <LikeButton />
+    <ToggleButton componentName="打开控件"/>
+  </div>
+  ,
+  document.getElementById('container')
+);
+  </script>
 </html>
